@@ -123,9 +123,11 @@ la pestaña **`S6`**:
 | **E**   | Número de teléfono        | El celular capturado (validado, 9 dígitos)      |
 | **F**   | Ubicacion                 | El distrito (solo lo envía el popup; si no, vacío) |
 
-El `append` agrega la fila empezando en la columna **E**, sin tocar A–D ni G en
-adelante (ID Anuncio, Campaña, Estado, etc., que gestiona el equipo). Por eso
-`GOOGLE_SHEETS_RANGE=S6!E:F`. La pestaña **siempre se llama `S6`**.
+Como A–H de S6 son una sola tabla continua, `values.append` ancla la fila en la
+**primera columna (A)** aunque el rango diga E:F. Por eso la app manda la fila
+con **A–D vacías** + E (teléfono) + F (ubicación), y `GOOGLE_SHEETS_RANGE=S6!A:F`.
+Así no se tocan las columnas que gestiona el equipo (ID Anuncio, Campaña, Estado…)
+y el dato cae exacto en E y F. La pestaña **siempre se llama `S6`**.
 
 > Nota: con este esquema NO se guardan fecha, origen ni metadatos; solo teléfono
 > y ubicación, para encajar en la hoja compartida.
@@ -168,7 +170,7 @@ cp .env.local.example .env.local
 GOOGLE_SHEETS_CLIENT_EMAIL=leads-writer@comunik2-leads.iam.gserviceaccount.com
 GOOGLE_SHEETS_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nMIIEvQ...\n-----END PRIVATE KEY-----\n"
 GOOGLE_SHEETS_SPREADSHEET_ID=1AbCdEf...GhIjKl
-GOOGLE_SHEETS_RANGE=S6!E:F
+GOOGLE_SHEETS_RANGE=S6!A:F
 ALLOWED_ORIGIN=*
 ```
 

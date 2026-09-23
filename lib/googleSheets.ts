@@ -45,13 +45,16 @@ function getSheetsClient() {
  * Lanza si falla la API (el caller decide cómo responder al cliente).
  *
  * IMPORTANTE: esta landing comparte la hoja del call center (pestaña "S6") y
- * SOLO escribe 2 columnas de esa pestaña, en este orden:
+ * SOLO llena 2 columnas de esa pestaña:
  *   E  Número de teléfono
  *   F  Ubicacion (distrito; solo lo envía el popup promocional, si no va vacío)
  *
- * Por eso GOOGLE_SHEETS_RANGE debe apuntar a esas dos columnas, p. ej. "S6!E:F".
- * El append escribe la fila empezando en la columna E, sin tocar A–D ni G en
- * adelante (las columnas que gestiona el equipo: ID Anuncio, Campaña, Estado…).
+ * OJO con el comportamiento de values.append: como A–H de S6 son una sola tabla
+ * continua, el append ancla la fila nueva en la PRIMERA columna de esa tabla (A),
+ * aunque el rango diga E:F. Por eso mandamos la fila con 4 celdas vacías al
+ * inicio (A, B, C, D) para que el teléfono caiga en E y la ubicación en F, sin
+ * tocar las columnas que gestiona el equipo (ID Anuncio, Campaña, Estado…).
+ * Con esto GOOGLE_SHEETS_RANGE debe cubrir desde A, p. ej. "S6!A:F".
  *
  * `meta` (ip/userAgent) se recibe por compatibilidad pero, con este esquema de
  * 2 columnas, no se escribe en la hoja.
@@ -61,14 +64,18 @@ export async function appendLead(
   _meta: LeadMeta = {},
 ): Promise<void> {
   const spreadsheetId = process.env.GOOGLE_SHEETS_SPREADSHEET_ID;
-  const range = process.env.GOOGLE_SHEETS_RANGE || "S6!E:F";
+  const range = process.env.GOOGLE_SHEETS_RANGE || "S6!A:F";
 
   if (!spreadsheetId) {
     throw new Error("Falta GOOGLE_SHEETS_SPREADSHEET_ID.");
   }
 
-  // Solo 2 columnas: E = teléfono, F = ubicación (distrito).
+  // Fila anclada en A: 4 celdas vacías (A–D) + E teléfono + F ubicación.
   const row = [
+    "", // A
+    "", // B
+    "", // C
+    "", // D
     lead.phone, // E · Número de teléfono
     lead.district ?? "", // F · Ubicacion
   ];
