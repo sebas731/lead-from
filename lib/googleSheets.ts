@@ -6,7 +6,7 @@ import type { LeadInput } from "./validate";
 
 const SHEETS_SCOPE = "https://www.googleapis.com/auth/spreadsheets";
 
-/** Metadatos del request que acompañan al lead. */
+/** Metadatos del request que acompañan al lead (por ahora no se escriben en la hoja). */
 export interface LeadMeta {
   ip?: string;
   userAgent?: string;
@@ -40,83 +40,37 @@ function getSheetsClient() {
   return google.sheets({ version: "v4", auth });
 }
 
-/** Fecha/hora legible en Lima (GMT-5), formato dd/mm/aaaa HH:MM:SS. */
-function formatLimaDate(date: Date): string {
-  const parts = new Intl.DateTimeFormat("es-PE", {
-    timeZone: "America/Lima",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: false,
-  }).formatToParts(date);
-
-  const get = (t: string) => parts.find((p) => p.type === t)?.value ?? "";
-  return `${get("day")}/${get("month")}/${get("year")} ${get("hour")}:${get(
-    "minute",
-  )}:${get("second")}`;
-}
-
-/**
- * Etiqueta legible por origen, para que la hoja no muestre solo el slug.
- */
-function sourceLabel(source: LeadInput["source"]): string {
-  switch (source) {
-    case "hero":
-      return "Hero";
-    case "cobertura":
-      return "Cobertura";
-    case "modal_contratar":
-      return "Modal Contratar";
-    case "modal_promo":
-      return "Modal Promo";
-    default:
-      return source;
-  }
-}
-
 /**
  * Agrega una fila a la Google Sheet con los datos del lead.
  * Lanza si falla la API (el caller decide cómo responder al cliente).
  *
- * Orden de columnas (A:J):
- *   A Fecha/Hora ISO
- *   B Fecha/Hora Lima (legible, GMT-5)
- *   C Origen
- *   D Nombre
- *   E Teléfono
- *   F Plan de interés
- *   G Términos aceptados (Sí/No)
- *   H URL de origen
- *   I IP | User-Agent  (metadatos opcionales)
- *   J Distrito (opcional; lo recoge el popup promocional)
+ * IMPORTANTE: esta landing comparte la hoja del call center (pestaña "S6") y
+ * SOLO escribe 2 columnas de esa pestaña, en este orden:
+ *   E  Número de teléfono
+ *   F  Ubicacion (distrito; solo lo envía el popup promocional, si no va vacío)
+ *
+ * Por eso GOOGLE_SHEETS_RANGE debe apuntar a esas dos columnas, p. ej. "S6!E:F".
+ * El append escribe la fila empezando en la columna E, sin tocar A–D ni G en
+ * adelante (las columnas que gestiona el equipo: ID Anuncio, Campaña, Estado…).
+ *
+ * `meta` (ip/userAgent) se recibe por compatibilidad pero, con este esquema de
+ * 2 columnas, no se escribe en la hoja.
  */
 export async function appendLead(
   lead: LeadInput,
-  meta: LeadMeta = {},
+  _meta: LeadMeta = {},
 ): Promise<void> {
   const spreadsheetId = process.env.GOOGLE_SHEETS_SPREADSHEET_ID;
-  const range = process.env.GOOGLE_SHEETS_RANGE || "Leads!A:J";
+  const range = process.env.GOOGLE_SHEETS_RANGE || "S6!E:F";
 
   if (!spreadsheetId) {
     throw new Error("Falta GOOGLE_SHEETS_SPREADSHEET_ID.");
   }
 
-  const now = new Date();
-
+  // Solo 2 columnas: E = teléfono, F = ubicación (distrito).
   const row = [
-    now.toISOString(), // A
-    formatLimaDate(now), // B
-    sourceLabel(lead.source), // C
-    lead.name ?? "", // D
-    lead.phone, // E
-    lead.plan ?? "", // F
-    lead.acceptedTerms ? "Sí" : "No", // G
-    lead.pageUrl ?? "", // H
-    [meta.ip, meta.userAgent].filter(Boolean).join(" | "), // I
-    lead.district ?? "", // J
+    lead.phone, // E · Número de teléfono
+    lead.district ?? "", // F · Ubicacion
   ];
 
   const sheets = getSheetsClient();

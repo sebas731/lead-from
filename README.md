@@ -114,19 +114,21 @@ Ese JSON contiene, entre otros, estos dos campos que necesitarás:
 
 ## Paso 3 — Crear la Google Sheet y compartirla (¡CRÍTICO!)
 
-1. Crea una hoja nueva en **[Google Sheets](https://sheets.google.com/)**.
-2. Renombra la **pestaña** (abajo) a **`Leads`** (debe coincidir con
-   `GOOGLE_SHEETS_RANGE=Leads!A:I`).
-3. En la **primera fila** escribe los encabezados, en este orden exacto
-   (columnas A a J):
+Esta landing **comparte la hoja del call center** (la misma de las campañas de
+TikTok). No crea pestaña ni encabezados propios: escribe **solo 2 columnas** de
+la pestaña **`S6`**:
 
-   | A          | B                 | C      | D      | E        | F               | G                 | H             | I              | J        |
-   | ---------- | ----------------- | ------ | ------ | -------- | --------------- | ----------------- | ------------- | -------------- | -------- |
-   | Fecha/Hora ISO | Fecha/Hora Lima | Origen | Nombre | Teléfono | Plan de interés | Términos aceptados | URL de origen | IP / User-Agent | Distrito |
+| Columna | Encabezado (ya existente) | Qué escribe la landing                          |
+| ------- | ------------------------- | ----------------------------------------------- |
+| **E**   | Número de teléfono        | El celular capturado (validado, 9 dígitos)      |
+| **F**   | Ubicacion                 | El distrito (solo lo envía el popup; si no, vacío) |
 
-   > Si ya tenías la hoja con columnas A–I, solo agrega el encabezado
-   > **"Distrito"** en la columna **J** y cambia `GOOGLE_SHEETS_RANGE` a
-   > `Leads!A:J`. El distrito lo envía únicamente el popup promocional.
+El `append` agrega la fila empezando en la columna **E**, sin tocar A–D ni G en
+adelante (ID Anuncio, Campaña, Estado, etc., que gestiona el equipo). Por eso
+`GOOGLE_SHEETS_RANGE=S6!E:F`. La pestaña **siempre se llama `S6`**.
+
+> Nota: con este esquema NO se guardan fecha, origen ni metadatos; solo teléfono
+> y ubicación, para encajar en la hoja compartida.
 
 4. **Compartir la hoja con la cuenta de servicio** (este es el paso que más se
    olvida):
@@ -166,7 +168,7 @@ cp .env.local.example .env.local
 GOOGLE_SHEETS_CLIENT_EMAIL=leads-writer@comunik2-leads.iam.gserviceaccount.com
 GOOGLE_SHEETS_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nMIIEvQ...\n-----END PRIVATE KEY-----\n"
 GOOGLE_SHEETS_SPREADSHEET_ID=1AbCdEf...GhIjKl
-GOOGLE_SHEETS_RANGE=Leads!A:J
+GOOGLE_SHEETS_RANGE=S6!E:F
 ALLOWED_ORIGIN=*
 ```
 
@@ -249,9 +251,8 @@ mientras que al cliente solo se le devuelve un mensaje genérico.
 **CORS:** la ruta responde al preflight `OPTIONS` y envía
 `Access-Control-Allow-Origin` según `ALLOWED_ORIGIN`.
 
-**Columnas escritas en la hoja** (orden A→J): Fecha/Hora ISO · Fecha/Hora Lima
-(GMT-5, legible) · Origen · Nombre · Teléfono · Plan de interés · Términos
-aceptados (Sí/No) · URL de origen · IP + User-Agent · Distrito.
+**Columnas escritas en la hoja** (pestaña `S6`, solo 2): **E** Número de teléfono
+· **F** Ubicacion (distrito). El resto de columnas no se tocan.
 
 ---
 
