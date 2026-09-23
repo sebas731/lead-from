@@ -1,0 +1,1243 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>ComuniK2 · Distribuidor Autorizado Claro</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="Contrata Internet, TV y beneficios Claro con ComuniK2, distribuidor autorizado en todo el Perú. Déjanos tu número y te llamamos.">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['-apple-system','BlinkMacSystemFont','Segoe UI','Roboto','Helvetica Neue','Arial','sans-serif'],
+        },
+      },
+    },
+  };
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- Font Awesome (versión SVG+JS: no necesita hoja de estilos externa, solo este script) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js" crossorigin="anonymous"></script>
+<style>
+  html{color-scheme:light;}
+  body{background:#fff;}
+  .font-nav{font-family:'Poppins',-apple-system,sans-serif;}
+  @keyframes gentle-bounce{
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+  .animate-gentle-bounce{
+    animation: gentle-bounce 2.4s ease-in-out infinite;
+  }
+  /* Footer: desplegable solo en celular; en pantalla grande se ve todo normal, abierto */
+  @media (min-width: 640px){
+    .footer-dropdown-answer{ display: block !important; }
+    .footer-dropdown-chevron{ display: none !important; }
+    .footer-dropdown-btn{ cursor: default; pointer-events: none; }
+  }
+
+  /* Formulario del hero: superpuesto ligeramente sobre el borde inferior del hero en mobile */
+  .hero-form{
+    width: calc(100% - 40px);
+    max-width: 360px;
+  }
+  @media (min-width: 640px){
+    .hero-form{ width: 280px; max-width: none; }
+  }
+  @media (min-width: 1024px){
+    .hero-form{ width: 300px; }
+  }
+
+  /* ============================================================
+     "Beneficios exclusivos de Claro" — componente rediseñado
+     Mobile-first: apilado y centrado -> Tablet: dos zonas ->
+     Desktop: ecosistema de tarjetas escalonadas/superpuestas
+     ============================================================ */
+  .cb-banner{
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    border-radius: 1.75rem;
+    background:
+      radial-gradient(circle at 88% 12%, rgba(255,255,255,0.14), transparent 55%),
+      linear-gradient(125deg, rgba(150,20,12,0.97) 0%, rgba(218,41,28,0.95) 55%, rgba(255,71,58,0.92) 100%),
+      url('assets/bg-pattern-red.jpg');
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 24px 48px -18px rgba(150,20,12,0.55);
+    padding: clamp(1.75rem, 4vw, 3rem) clamp(1.5rem, 5vw, 3.5rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  .cb-banner__text{
+    text-align: center;
+    max-width: 34rem;
+  }
+  .cb-banner__eyebrow{
+    margin: 0;
+    font-style: italic;
+    color: rgba(255,255,255,0.85);
+    font-size: clamp(0.8rem, 1.4vw + 0.35rem, 1.05rem);
+    letter-spacing: 0.01em;
+  }
+  .cb-banner__title{
+    margin: 0.4rem auto 0;
+    max-width: 18ch;
+    font-weight: 800;
+    font-style: italic;
+    text-transform: uppercase;
+    color: #fff;
+    line-height: 1.18;
+    font-size: clamp(1.3rem, 3.6vw + 0.4rem, 2.5rem);
+  }
+
+  .cb-banner__benefits{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    max-width: 23rem;
+  }
+  .cb-card{
+    flex: 0 0 calc(50% - 0.375rem);
+    aspect-ratio: 4 / 3;
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 14px 26px -12px rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.85rem 1rem;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .cb-card--5{ flex-basis: 100%; max-width: 11rem; margin-inline: auto; }
+  .cb-card__logo{
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+  .cb-card:hover{ transform: translateY(-3px); box-shadow: 0 18px 30px -12px rgba(0,0,0,0.45); }
+
+  /* ---- Tablet: 768px–1023px — dos zonas, tarjetas sin comprimirse ---- */
+  @media (min-width: 768px){
+    .cb-banner{
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      text-align: left;
+    }
+    .cb-banner__text{ text-align: left; max-width: 19rem; flex: 0 0 auto; }
+    .cb-banner__title{ margin-inline: 0; }
+    .cb-banner__benefits{
+      max-width: none;
+      width: auto;
+      flex: 1 1 auto;
+      justify-content: flex-end;
+      gap: 0.85rem;
+    }
+    .cb-card{
+      flex: 0 0 auto;
+      width: clamp(5.5rem, 9vw, 7rem);
+      aspect-ratio: 1 / 0.85;
+    }
+    .cb-card--5{ flex-basis: auto; max-width: none; margin-inline: 0; }
+  }
+
+  /* ---- Desktop: ≥1024px — ecosistema escalonado/superpuesto ---- */
+  @media (min-width: 1024px){
+    .cb-banner{ min-height: 15rem; }
+    .cb-banner__benefits{ gap: 0; padding-inline-end: 0.5rem; }
+    .cb-card{ width: clamp(6.5rem, 7vw, 8rem); margin-left: -1rem; }
+    .cb-card:first-child{ margin-left: 0; }
+    .cb-card--1{ transform: translateY(0.6rem) rotate(-3deg); z-index: 5; }
+    .cb-card--2{ transform: translateY(-1.1rem) rotate(2deg); z-index: 4; width: clamp(7rem, 7.5vw, 8.5rem); }
+    .cb-card--3{ transform: translateY(1.3rem) rotate(-2deg); z-index: 3; }
+    .cb-card--4{ transform: translateY(-0.7rem) rotate(2.5deg); z-index: 2; }
+    .cb-card--5{ transform: translateY(0.9rem) rotate(-1.5deg); z-index: 1; width: clamp(5.75rem, 6.5vw, 7rem); }
+    .cb-card:hover{ transform: translateY(-0.5rem) rotate(0deg) scale(1.05); z-index: 10; box-shadow: 0 22px 34px -12px rgba(0,0,0,0.5); }
+  }
+
+  .cb-cta-wrap{
+    margin-top: clamp(1.5rem, 3vw, 2rem);
+    display: flex;
+    justify-content: center;
+    padding-inline: 1rem;
+  }
+  .cb-cta{
+    border: none;
+    cursor: pointer;
+    border-radius: 999px;
+    background: #8f170f;
+    color: #fff;
+    font-weight: 800;
+    font-style: italic;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    padding: 0.95rem 2.75rem;
+    font-size: clamp(0.85rem, 1vw + 0.5rem, 1rem);
+    min-height: 48px;
+    width: 100%;
+    max-width: 20rem;
+    box-shadow: 0 14px 26px -10px rgba(143,23,15,0.55);
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  @media (min-width: 640px){
+    .cb-cta{ width: auto; max-width: none; }
+  }
+  .cb-cta:hover{ background: #6f120b; transform: translateY(-2px); box-shadow: 0 18px 30px -10px rgba(143,23,15,0.6); }
+  .cb-cta:active{ transform: translateY(0); }
+
+  /* ============================================================
+     Tarjetas de planes — rediseño mobile-first
+     Mobile (base): columna compacta, "Incluye" en cuadrícula.
+     Desktop (≥640px): más espaciosa, "Incluye" vuelve a fila.
+     ============================================================ */
+  .plan-card{
+    position: relative;
+    container-type: inline-size;
+    width: clamp(270px, 86vw, 330px);
+    max-width: 330px;
+    min-width: 0;
+    margin-inline: auto;
+    border-radius: 1.25rem;
+    isolation: isolate;
+  }
+  @media (min-width: 640px){
+    .plan-card{ width: 100%; max-width: 360px; }
+  }
+  .plan-card--featured{ animation: gentle-bounce 2.4s ease-in-out infinite; }
+
+  .plan-card__badge{
+    position: absolute;
+    top: 0;
+    left: 0.25rem;
+    z-index: 20;
+    transform: translateY(-55%);
+    max-width: 70%;
+  }
+  .plan-card__badge-inner{
+    display: inline-block;
+    transform: skewX(-16deg);
+    background: #FB8003;
+    border-radius: 0.35rem 0.35rem 0.35rem 0;
+    padding: 0.35rem 0.85rem 0.35rem 0.7rem;
+    box-shadow: 0 6px 14px -6px rgba(0,0,0,0.4);
+  }
+  .plan-card__badge-text{
+    display: inline-block;
+    transform: skewX(16deg);
+    white-space: nowrap;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .plan-card__ribbon{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 4rem;
+    height: 4rem;
+    overflow: hidden;
+    z-index: 5;
+    pointer-events: none;
+    border-top-right-radius: inherit;
+  }
+  .plan-card__ribbon-tag{
+    position: absolute;
+    top: 0.65rem;
+    right: -1.5rem;
+    width: 6rem;
+    transform: rotate(45deg);
+    background: #DA291C;
+    padding: 0.25rem 0;
+    text-align: center;
+    font-size: 0.6rem;
+    font-weight: 800;
+    color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+  }
+
+  .plan-card__body{
+    background: #fff;
+    border: 1px solid rgba(218,41,28,0.25);
+    border-radius: inherit;
+    box-shadow: 0 18px 32px -18px rgba(0,0,0,0.35);
+    overflow: hidden;
+    min-width: 0;
+  }
+
+  .plan-card__header{ padding: 1.5rem 1.25rem 0.5rem; text-align: center; min-width: 0; }
+  .plan-card__icon{ display: block; font-size: 1.35rem; color: #374151; margin: 0 auto 0.25rem; }
+  .plan-card__title{ margin: 0; font-size: clamp(1.05rem, 5.5cqw, 1.4rem); font-weight: 500; color: #DA291C; }
+  .plan-card__subtitle{ margin: 0.25rem 0 0; font-size: 0.72rem; font-weight: 500; color: #6b7280; padding-inline: 0.25rem; overflow-wrap: break-word; }
+  .plan-card__speed{
+    margin: 0.6rem 0 0;
+    font-weight: 800;
+    color: #DA291C;
+    font-size: clamp(1.7rem, 15cqw, 2.75rem);
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .plan-card__price{ padding: 1.05rem 1.25rem; text-align: center; min-width: 0; }
+  .plan-card__price-label{ margin: 0; font-size: 0.72rem; font-weight: 500; color: #9ca3af; }
+  .plan-card__price-amount{ margin: 0.3rem 0 0; font-weight: 800; color: #111827; font-size: clamp(1.5rem, 11cqw, 2.1rem); line-height: 1.1; white-space: nowrap; }
+  .plan-card__price-amount small{ font-size: 0.45em; font-weight: 500; color: #9ca3af; margin-left: 0.15em; }
+  .plan-card__price-regular{ margin: 0.35rem 0 0; font-size: 0.72rem; color: #9ca3af; }
+
+  .plan-card__bono{
+    margin: 0 0.85rem;
+    border-radius: 0.85rem;
+    border: 1px solid #1f2937;
+    background: #111827;
+    padding: 0.8rem 0.75rem;
+    text-align: center;
+    min-width: 0;
+  }
+  .plan-card__bono-speed{ margin: 0; font-weight: 800; color: #fff; line-height: 1.15; font-size: clamp(1.15rem, 9cqw, 1.7rem); white-space: nowrap; }
+  .plan-card__bono-duration{ margin: 0; font-size: 0.8rem; color: rgba(255,255,255,0.9); }
+  .plan-card__bono-note{ margin: 0.25rem 0 0; font-size: 0.8rem; font-weight: 700; color: #fff; }
+
+  .plan-card__divider{ margin: 1.1rem 1.25rem 0; border-top: 1px solid #f3f4f6; }
+
+  .plan-card__includes{ margin-top: 1.1rem; background: #EAF3FB; padding: 1.1rem 1rem; text-align: center; min-width: 0; }
+  .plan-card__includes-title{ margin: 0 0 0.85rem; font-size: 0.85rem; font-weight: 700; color: #111827; }
+  .plan-card__includes-grid{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
+  }
+  .plan-card__include-item{
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    background: #fff;
+    border-radius: 0.7rem;
+    padding: 0.6rem 0.4rem;
+    box-shadow: 0 4px 10px -6px rgba(0,0,0,0.25);
+  }
+  .plan-card__include-item--span2{ grid-column: 1 / -1; max-width: 60%; margin-inline: auto; }
+  .plan-card__include-logo{ max-width: 100%; max-height: 2rem; width: auto; height: auto; object-fit: contain; }
+  .plan-card__include-icon{ font-size: 1.1rem; color: #DA291C; }
+  .plan-card__include-label{ font-size: 0.6rem; font-weight: 700; line-height: 1.15; color: #374151; }
+
+  .plan-card__extra{ padding: 1rem 1.15rem 0; text-align: center; min-width: 0; }
+  .plan-card__extra-label{ margin: 0; font-size: 0.72rem; font-weight: 700; color: #6b7280; }
+  .plan-card__extra-logo{ display: block; margin: 0.4rem auto 0; height: 1.5rem; width: auto; max-width: 60%; object-fit: contain; }
+
+  .plan-card__install{
+    margin: 1.1rem 1.15rem 0;
+    border-radius: 0.85rem;
+    background: #f3f4f6;
+    padding: 0.75rem 0.9rem;
+    text-align: center;
+    min-width: 0;
+  }
+  .plan-card__install-title{ margin: 0; font-size: 0.85rem; font-weight: 700; color: #111827; }
+  .plan-card__install-note{ margin: 0.15rem 0 0; font-size: 0.72rem; color: #6b7280; }
+
+  .plan-card__cta-wrap{ padding: 1.1rem 1rem 1.25rem; }
+  .plan-card__cta{
+    display: block;
+    width: 100%;
+    border: none;
+    cursor: pointer;
+    border-radius: 999px;
+    background: #FF3333;
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 0.85rem 1rem;
+    transition: background-color 0.2s ease, transform 0.15s ease;
+  }
+  .plan-card__cta:hover{ background: #e02323; }
+  .plan-card__cta:active{ transform: scale(0.99); }
+
+  /* ---- Desktop / pantallas ≥640px: composición más espaciosa ---- */
+  @media (min-width: 640px){
+    .plan-card__header{ padding: 1.75rem 1.5rem 0.5rem; }
+    .plan-card__price{ padding: 1.25rem 1.5rem; }
+    .plan-card__bono{ margin-inline: 1.5rem; padding: 0.85rem 1rem; }
+    .plan-card__divider{ margin-inline: 1.5rem; }
+    .plan-card__includes{ padding: 1.25rem 1.5rem; }
+    .plan-card__includes-grid{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+    }
+    .plan-card__include-item{
+      background: transparent;
+      box-shadow: none;
+      padding: 0;
+    }
+    .plan-card__include-item--span2{ max-width: none; margin-inline: 0; }
+    .plan-card__extra{ padding: 1rem 1.5rem 0; }
+    .plan-card__install{ margin-inline: 1.5rem; }
+    .plan-card__cta-wrap{ padding: 1.1rem 1.25rem 1.5rem; }
+  }
+
+  /* ===== "Descubre los beneficios de ser parte de Claro" carousel (cd-*) ===== */
+  .cd-carousel{ position: relative; }
+  .cd-track{
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    overflow-y: visible;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    padding: 4px 8px 8px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .cd-track::-webkit-scrollbar{ display: none; }
+
+  .cd-card{
+    position: relative;
+    flex: 0 0 auto;
+    width: clamp(250px, calc(100vw - 60px), 320px);
+    margin: 28px auto 0;
+    border-radius: 20px;
+    background: #fff;
+    padding: 55px 24px 30px;
+    min-height: 200px;
+    text-align: center;
+    box-shadow: 0 12px 26px rgba(0,0,0,.16);
+    scroll-snap-align: center;
+    container-type: inline-size;
+    --cd-num-size: clamp(120px, 46cqw, 175px);
+  }
+  .cd-card__bg-clip{
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    border-radius: inherit;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .cd-card__diamond{
+    position: absolute;
+    left: calc(var(--cd-num-size) * -0.5);
+    bottom: calc(var(--cd-num-size) * -0.5);
+    width: var(--cd-num-size);
+    aspect-ratio: 1 / 1;
+    border-radius: 12px;
+    background: rgba(218, 41, 28, 0.08);
+    border: 1px solid rgba(218, 41, 28, 0.14);
+    transform: rotate(45deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .cd-card__diamond-num{
+    transform: rotate(-45deg);
+    font-weight: 800;
+    font-size: clamp(2rem, 26cqw, 3.4rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: rgba(218, 41, 28, 0.2);
+    white-space: nowrap;
+  }
+  .cd-card__content{
+    position: relative;
+    z-index: 1;
+  }
+  .cd-card__badge{
+    position: absolute;
+    top: -28px;
+    left: 50%;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transform: translateX(-50%);
+  }
+  .cd-card__badge-lines{ display: flex; flex-direction: column; gap: 4px; }
+  .cd-card__badge-line{ display: block; height: 4px; border-radius: 9999px; background: #DA291C; }
+  .cd-card__badge-line--1{ width: 16px; }
+  .cd-card__badge-line--2{ width: 12px; }
+  .cd-card__badge-line--3{ width: 8px; }
+  .cd-card__icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: clamp(56px, 15vw, 64px);
+    height: clamp(56px, 15vw, 64px);
+    border-radius: 16px;
+    background: #FDB913;
+    box-shadow: 0 4px 10px rgba(0,0,0,.2);
+    color: #fff;
+    font-size: clamp(1.2rem, 5vw, 1.5rem);
+    flex-shrink: 0;
+  }
+  .cd-card__title{
+    margin-top: 16px;
+    font-weight: 800;
+    font-size: clamp(.85rem, 3.6vw, 1rem);
+    color: #111827;
+    line-height: 1.3;
+  }
+  .cd-card__text{
+    margin-top: 8px;
+    font-size: clamp(.72rem, 3.2vw, .8rem);
+    line-height: 1.55;
+    color: #4b5563;
+  }
+
+  .cd-arrow{
+    width: 40px;
+    height: 40px;
+    border-radius: 9999px;
+    background: #fff;
+    color: #DA291C;
+  }
+  .cd-dot{
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border: 0;
+    border-radius: 9999px;
+    background: rgba(255,255,255,.45);
+    transition: background .25s ease, width .25s ease;
+  }
+  .cd-dot.is-active{ width: 22px; background: #fff; }
+
+  @media (min-width: 768px){
+    .cd-card{ width: clamp(260px, 44vw, 300px); }
+  }
+
+  @media (min-width: 1024px){
+    .cd-track{
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 24px;
+      overflow: visible;
+      padding: 0;
+    }
+    .cd-card{
+      width: 100%;
+      margin: 32px 0 0;
+      min-height: 0;
+      padding: 40px 20px 24px;
+    }
+    .cd-card__icon{
+      width: 56px;
+      height: 56px;
+      font-size: 1.5rem;
+    }
+  }
+
+  @keyframes clockPulse{
+    0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+    50% { transform: scale(1.25) rotate(-12deg); opacity: 0.55; }
+  }
+  .clock-pulse{
+    display: inline-block;
+    animation: clockPulse 1.1s ease-in-out infinite;
+  }
+
+  /* Honeypot anti-spam: invisible para humanos, los bots sí lo llenan */
+  .hp-field{
+    position: absolute !important;
+    left: -9999px !important;
+    top: -9999px !important;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
+  /* Mensaje de estado (éxito/error) de cada formulario */
+  .lead-msg{ display: none; }
+  .lead-msg.is-visible{ display: block; }
+</style>
+</head>
+
+<body class="font-sans text-gray-800">
+
+  <!-- ============ HEADER (sticky) ============ -->
+  <div class="sticky top-0 z-40">
+    <header class="bg-[#DA291C] shadow-sm">
+      <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-5 sm:py-5">
+        <!-- Distribuidor autorizado Claro (lockup) -->
+        <div class="flex shrink-0 items-center">
+          <img src="assets/distribuidor-autorizado-claro.png" alt="Distribuidor autorizado Claro" class="h-4 w-auto sm:h-5 md:h-6">
+        </div>
+
+        <!-- Contáctanos + ícono de teléfono (Font Awesome, blanco) -->
+        <a href="#" aria-label="Contáctanos" class="cta-contratar flex shrink-0 items-center gap-1.5 text-white sm:gap-2">
+          <span class="font-nav text-xs font-medium sm:text-sm">Contáctanos</span>
+          <i class="fa-solid fa-phone text-base sm:text-lg" aria-hidden="true"></i>
+        </a>
+      </div>
+    </header>
+  </div>
+
+  <!-- ============ HERO (banner único: Más entretenimiento) ============ -->
+  <section class="relative pb-[232px] sm:pb-0">
+    <div class="relative bg-gray-100 sm:h-[480px] sm:overflow-hidden lg:h-[560px]">
+      <!-- Banner: vertical en mobile, horizontal desde sm/desktop -->
+      <div class="hero-slide relative w-full sm:absolute sm:inset-0" data-slide="0">
+        <img src="assets/hero-entretenimiento-vertical.jpg" alt="Más entretenimiento en un solo lugar - Claro Hogar" class="block h-auto w-full sm:hidden">
+        <img src="assets/hero-entretenimiento-horizontal.jpg" alt="Más entretenimiento en un solo lugar - Claro Hogar" class="hidden h-full w-full object-cover sm:block">
+      </div>
+
+      <!-- Formulario: superpuesto ligeramente sobre el borde inferior del hero en mobile; al lado del carrusel desde sm -->
+      <div class="hero-form absolute left-1/2 -bottom-[208px] z-10 -translate-x-1/2 sm:left-auto sm:right-6 sm:top-1/2 sm:bottom-auto sm:translate-x-0 sm:-translate-y-1/2 lg:right-10">
+        <div class="overflow-hidden rounded-xl bg-white shadow-xl">
+          <div class="bg-[#DA291C] px-3.5 py-2.5 text-center sm:px-4 sm:py-3">
+            <p class="font-nav text-sm font-extrabold uppercase tracking-wide text-white">¡Contrátalo ya!</p>
+          </div>
+          <div class="p-3 sm:p-3.5">
+            <p class="font-nav text-center text-sm font-bold text-gray-800">¡Déjanos tu número y te llamamos!</p>
+
+            <!-- Honeypot anti-spam -->
+            <input type="text" id="hero-hp" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+            <div class="relative mt-2 sm:mt-2.5">
+              <i class="fa-solid fa-phone pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-xs text-[#DA291C]"></i>
+              <input
+                type="tel"
+                id="hero-phone"
+                inputmode="numeric"
+                placeholder="Número de teléfono"
+                class="font-nav w-full rounded-lg border-2 border-[#DA291C]/70 bg-white py-1.5 pl-8 pr-3 text-center text-xs text-gray-800 placeholder-gray-400 focus:border-[#DA291C] focus:outline-none sm:py-2"
+              >
+            </div>
+
+            <label class="font-nav mt-1.5 flex items-start gap-1.5 text-left text-[10px] leading-snug text-gray-500 sm:mt-2">
+              <input type="checkbox" id="hero-terms" checked class="mt-0.5 h-3.5 w-3.5 shrink-0 rounded border-2 border-[#DA291C]/70 accent-[#DA291C]">
+              <span>
+                He leído y
+                <button type="button" class="terms-trigger font-semibold text-[#DA291C] hover:underline">acepto los términos y condiciones</button>
+              </span>
+            </label>
+
+            <button
+              type="button"
+              id="hero-submit"
+              class="font-nav mt-2 w-full rounded-full bg-[#DA291C] py-2 text-sm font-bold text-white shadow-md transition-colors duration-200 hover:bg-[#B31E13] active:scale-[0.98] disabled:opacity-70 sm:mt-2.5 sm:py-2.5"
+            >
+              Llámenme
+            </button>
+
+            <p id="hero-msg" class="lead-msg font-nav mt-2 text-center text-[11px] font-bold"></p>
+
+            <p class="font-nav mt-2 text-center text-[10px] font-bold text-[#DA291C] sm:mt-2.5">Horario de atención</p>
+            <p class="font-nav text-center text-[10px] text-gray-500">Lunes a Sábado de 7:00 a.m. a 10:00 p.m.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (function () {
+      const slides = Array.from(document.querySelectorAll('.hero-slide'));
+      const dots = Array.from(document.querySelectorAll('.hero-dot'));
+      if (!slides.length || !dots.length) return;
+      let current = 0;
+      let timer = null;
+
+      function show(index) {
+        current = index;
+        slides.forEach((s, i) => s.classList.toggle('hidden', i !== index));
+        dots.forEach((d, i) => {
+          d.classList.toggle('bg-white', i === index);
+          d.classList.toggle('bg-white/50', i !== index);
+        });
+      }
+
+      function next() {
+        show((current + 1) % slides.length);
+      }
+
+      function restartAutoplay() {
+        if (timer) clearInterval(timer);
+        timer = setInterval(next, 5000);
+      }
+
+      dots.forEach((d, i) => {
+        d.addEventListener('click', () => {
+          show(i);
+          restartAutoplay();
+        });
+      });
+
+      show(0);
+      restartAutoplay();
+    })();
+  </script>
+
+  <!-- ============ FRANJA: SERVICIOS INCLUIDOS (logos) ============ -->
+  <section class="bg-white py-8 sm:py-10">
+    <div class="mx-auto max-w-6xl px-4 sm:px-5">
+      <div class="grid grid-cols-2 gap-y-8 gap-x-4 sm:grid-cols-4 sm:gap-y-0 sm:divide-x sm:divide-gray-200">
+        <div class="flex h-16 items-center justify-center px-4 sm:h-20">
+          <img src="assets/logo-universal.png" alt="Universal+" class="max-h-full max-w-[110px] object-contain sm:max-w-[130px]">
+        </div>
+        <div class="flex h-16 items-center justify-center px-4 sm:h-20">
+          <img src="assets/logo-l1max.png" alt="Liga1 MAX" class="max-h-full max-w-[110px] object-contain sm:max-w-[130px]">
+        </div>
+        <div class="flex h-16 items-center justify-center px-4 sm:h-20">
+          <img src="assets/logo-claro-video.png" alt="Claro video" class="max-h-full max-w-[110px] object-contain sm:max-w-[130px]">
+        </div>
+        <div class="flex h-16 items-center justify-center px-4 sm:h-20">
+          <img src="assets/icon-wifi360.png" alt="WiFi 360" class="max-h-full max-w-[110px] object-contain sm:max-w-[130px]">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BANNER: LIGA1MAX ============ -->
+  <section class="bg-white pb-8 sm:pb-10">
+    <div class="mx-auto max-w-6xl px-4 sm:px-5">
+      <div class="relative overflow-hidden rounded-2xl shadow-lg">
+        <img src="assets/hero-liga1max-vertical.jpg" alt="Liga1MAX - Vive todos los partidos en Claro" class="block h-auto w-full sm:hidden">
+        <img src="assets/hero-liga1max-horizontal.jpg" alt="Liga1MAX - Vive todos los partidos en Claro" class="hidden h-auto w-full object-cover sm:block">
+        <div class="absolute inset-x-0 bottom-0 flex justify-center bg-gradient-to-t from-black/70 to-transparent px-4 pb-4 pt-10 sm:justify-start sm:px-8 sm:pb-6">
+          <button
+            type="button"
+            class="cta-contratar rounded-full bg-white px-6 py-2.5 text-sm font-extrabold text-[#DA291C] shadow-md transition-colors duration-200 hover:bg-gray-100 active:scale-[0.98] sm:px-8 sm:py-3 sm:text-base"
+          >
+            ¡Lo quiero!
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (function () {
+      document.addEventListener('click', (e) => {
+        const btn = e.target.closest('.faq-question');
+        if (!btn) return;
+        const answer = btn.nextElementSibling;
+        const chevron = btn.querySelector('.faq-chevron');
+        const isOpen = !answer.classList.contains('hidden');
+        answer.classList.toggle('hidden', isOpen);
+        if (chevron) chevron.classList.toggle('rotate-180', !isOpen);
+      });
+    })();
+  </script>
+
+  <!-- ============ MODAL: ¡CONTRÁTALO YA! (se abre desde "Solicitar ya" / "¡Lo deseo!") ============ -->
+  <div id="modal-contratar" class="fixed inset-0 z-50 hidden items-center justify-center overflow-y-auto bg-black/70 px-4 py-6">
+    <div class="relative w-full max-w-[320px] overflow-hidden rounded-xl bg-white shadow-2xl">
+      <button type="button" id="modal-contratar-close" aria-label="Cerrar" class="absolute right-2 top-2 z-10 flex h-7 w-7 items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30">
+        <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+      </button>
+
+      <div class="bg-[#DA291C] px-4 py-3 text-center">
+        <p class="font-nav text-sm font-extrabold uppercase tracking-wide text-white">¡Contrátalo ya!</p>
+      </div>
+      <div class="p-4">
+        <p class="font-nav text-center text-sm font-bold text-gray-800">¡Déjanos tu número y te llamamos!</p>
+
+        <!-- Honeypot anti-spam -->
+        <input type="text" id="mc-hp" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+        <div class="relative mt-3">
+          <i class="fa-solid fa-phone pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-xs text-[#DA291C]"></i>
+          <input
+            type="tel"
+            id="mc-phone"
+            inputmode="numeric"
+            placeholder="Número de teléfono"
+            class="font-nav w-full rounded-lg border-2 border-[#DA291C]/70 bg-white py-2 pl-8 pr-3 text-center text-xs text-gray-800 placeholder-gray-400 focus:border-[#DA291C] focus:outline-none"
+          >
+        </div>
+
+        <label class="font-nav mt-2 flex items-start gap-1.5 text-left text-[10px] leading-snug text-gray-500">
+          <input type="checkbox" id="mc-terms" checked class="mt-0.5 h-3.5 w-3.5 shrink-0 rounded border-2 border-[#DA291C]/70 accent-[#DA291C]">
+          <span>
+            He leído y
+            <button type="button" class="terms-trigger font-semibold text-[#DA291C] hover:underline">acepto los términos y condiciones</button>
+          </span>
+        </label>
+
+        <button
+          type="button"
+          id="mc-submit"
+          class="font-nav mt-3 w-full rounded-full bg-[#DA291C] py-2.5 text-sm font-bold text-white shadow-md transition-colors duration-200 hover:bg-[#B31E13] active:scale-[0.98] disabled:opacity-70"
+        >
+          Llámenme
+        </button>
+
+        <p id="mc-msg" class="lead-msg font-nav mt-2 text-center text-[11px] font-bold"></p>
+
+        <p class="font-nav mt-3 text-center text-[10px] font-bold text-[#DA291C]">Horario de atención</p>
+        <p class="font-nav text-center text-[10px] text-gray-500">Lunes a Sábado de 7:00 a.m. a 10:00 p.m.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const modal = document.getElementById('modal-contratar');
+      const closeBtn = document.getElementById('modal-contratar-close');
+      if (!modal || !closeBtn) return;
+
+      function openModal() {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
+      function closeModal() {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+      // Expuesto para que el wiring de leads pueda cerrarlo tras un envío exitoso.
+      window.closeModalContratar = closeModal;
+
+      document.addEventListener('click', (e) => {
+        const trigger = e.target.closest('.cta-contratar');
+        if (!trigger) return;
+        e.preventDefault();
+        openModal();
+      });
+      closeBtn.addEventListener('click', closeModal);
+      modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+    })();
+  </script>
+
+  <!-- ============ MODAL: PROMOCIÓN DE ENTRADA (se muestra sola al cargar la página) ============ -->
+  <div id="modal-promo" class="fixed inset-0 z-50 hidden items-start justify-center overflow-y-auto bg-black/70 px-4 py-6 backdrop-blur-sm sm:items-center">
+    <div class="relative w-full max-w-[340px] overflow-hidden rounded-none bg-white shadow-2xl sm:max-w-[860px] sm:rounded-2xl">
+
+      <!-- Botón cerrar -->
+      <button type="button" id="modal-promo-close" aria-label="Cerrar" class="absolute right-2 top-2 z-10 flex h-7 w-7 items-center justify-center rounded-full bg-black/40 text-white hover:bg-black/60">
+        <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+      </button>
+
+      <!-- Cabecera roja: Distribuidor Autorizado Claro -->
+      <div class="bg-[#DA291C] px-4 py-2.5 text-center">
+        <img src="assets/distribuidor-autorizado-claro.png" alt="Distribuidor autorizado Claro" class="mx-auto h-4 w-auto">
+      </div>
+
+      <!-- Contenido: imagen + formulario (apilados en celular, uno al lado del otro en pantalla completa) -->
+      <div class="flex flex-col sm:flex-row">
+        <!-- Imagen promocional (contenido ya incluido en la foto) -->
+        <div class="relative w-full overflow-hidden bg-gradient-to-b from-[#5c0f09] to-black sm:w-1/2">
+          <img src="assets/promo-mas-entretenimiento-v2.jpg" alt="Más entretenimiento en un solo lugar - Claro Hogar" class="block h-full w-full object-cover">
+        </div>
+
+        <!-- Formulario -->
+        <div class="relative flex w-full flex-col justify-center overflow-hidden sm:w-1/2">
+          <!-- Fondo degradado (base de color para el efecto cristal) -->
+          <div class="absolute inset-0 bg-gradient-to-br from-[#2c2c2c] via-[#161616] to-black"></div>
+
+          <!-- Tarjeta del formulario -->
+          <div class="glass-panel relative z-10 mx-auto flex w-full max-w-[320px] flex-col rounded-[16px] border border-white/15 bg-[rgba(25,25,25,0.75)] p-4 shadow-[0_10px_28px_rgba(0,0,0,0.4)] sm:max-w-[400px] sm:rounded-[22px] sm:p-7">
+            <div class="flex items-center justify-center gap-2 sm:gap-3">
+              <i class="fa-solid fa-clock clock-pulse text-sm text-white/70 sm:text-xl" aria-hidden="true"></i>
+              <p class="font-nav text-center text-base font-extrabold leading-[1.15] text-white sm:text-2xl">¡NO DEJES PASAR<br>ESTA OFERTA!</p>
+              <i class="fa-solid fa-clock clock-pulse text-sm text-white/70 sm:text-xl" aria-hidden="true"></i>
+            </div>
+
+            <!-- Honeypot anti-spam -->
+            <input type="text" id="mp-hp" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+            <input
+              type="tel"
+              id="mp-phone"
+              inputmode="numeric"
+              placeholder="N° de Celular"
+              class="font-nav mt-3 h-10 w-full rounded-lg border border-white/10 bg-[#F4F4F4] px-4 text-center text-xs text-[#747B85] placeholder-[#747B85] focus:border-white/40 focus:outline-none sm:mt-5 sm:h-14 sm:rounded-xl sm:text-base"
+            >
+
+            <input
+              type="text"
+              id="mp-distrito"
+              placeholder="Distrito (opcional)"
+              class="font-nav mt-2 h-10 w-full rounded-lg border border-white/10 bg-[#F3F3F3] px-4 text-center text-xs text-[#747B85] placeholder-[#747B85] focus:border-white/40 focus:outline-none sm:mt-3 sm:h-14 sm:rounded-xl sm:text-base"
+            >
+
+            <label class="font-nav mt-2 flex items-start gap-1.5 text-left text-[11px] leading-snug text-white/55 sm:mt-3 sm:gap-2 sm:text-sm">
+              <input type="checkbox" id="mp-terms" class="mt-0.5 h-3.5 w-3.5 shrink-0 rounded border border-white/40 accent-white sm:h-[18px] sm:w-[18px]">
+              <span>
+                He leído y
+                <button type="button" class="terms-trigger font-bold text-white underline decoration-white/60 hover:decoration-white">acepto los términos y condiciones</button>
+              </span>
+            </label>
+
+            <button
+              type="button"
+              id="mp-submit"
+              class="font-nav mt-3 h-11 w-full rounded-full bg-white text-sm font-extrabold text-[#E1251B] shadow-md transition-colors duration-200 hover:bg-gray-100 active:scale-[0.98] disabled:opacity-70 sm:mt-4 sm:h-[58px] sm:text-lg"
+            >
+              Llámame ahora
+            </button>
+
+            <p id="mp-msg" class="lead-msg font-nav mt-2 text-center text-xs font-bold text-white"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const modal = document.getElementById('modal-promo');
+      const closeBtn = document.getElementById('modal-promo-close');
+      if (!modal || !closeBtn) return;
+
+      function openModal() {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
+      function closeModal() {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+      // Expuesto para que el wiring de leads pueda cerrarlo tras un envío exitoso.
+      window.closeModalPromo = closeModal;
+
+      window.addEventListener('load', () => {
+        setTimeout(openModal, 800);
+      });
+      closeBtn.addEventListener('click', closeModal);
+      modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+    })();
+  </script>
+
+
+  <!-- ============ MODAL: TÉRMINOS Y CONDICIONES ============ -->
+  <div id="modal-terminos" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 px-4">
+    <div class="font-nav flex max-h-[85vh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl bg-white shadow-2xl">
+      <div class="flex items-center justify-between border-b border-gray-200 px-5 py-4">
+        <h3 class="text-lg font-extrabold text-gray-900">Información legal</h3>
+        <button type="button" id="modal-terminos-close" aria-label="Cerrar" class="flex h-8 w-8 items-center justify-center rounded-full text-gray-500 hover:bg-gray-100 hover:text-gray-800">
+          <svg viewBox="0 0 24 24" fill="none" class="h-5 w-5"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="overflow-y-auto px-5 py-5 text-sm leading-relaxed text-gray-600">
+        <h4 class="text-base font-bold text-gray-900">Términos y Condiciones</h4>
+        <p class="mt-3">
+          El presente documento establece los términos y condiciones generales (en adelante, los "Términos y Condiciones") aplicables al uso de este sitio web (en adelante, el "Sitio") puesto a disposición del público en general (en adelante, indistintamente, el "Usuario" o los "Usuarios") por parte de ComuniK2 (en adelante, la "Empresa") para la comercialización de productos y servicios prestados por América Móvil Perú S.A.C. (en adelante, "CLARO"). El Usuario que desee usar el Sitio podrá hacerlo sujetándose a los Términos y Condiciones.
+        </p>
+        <p class="mt-3 font-semibold text-gray-800">
+          LOS PRESENTES TÉRMINOS Y CONDICIONES TIENEN UN CARÁCTER OBLIGATORIO Y VINCULANTE, POR LO QUE CUALQUIER USUARIO QUE NO ACEPTE ESTOS TÉRMINOS Y CONDICIONES DEBERÁ ABSTENERSE DE UTILIZAR EL SITIO.
+        </p>
+        <p class="mt-3">
+          El Usuario debe leer todas las condiciones establecidas en estos Términos y Condiciones, así como en los demás documentos incorporados en el Sitio previo al uso del Sitio. La aceptación expresa de los Términos y Condiciones que se establecen a continuación y/o el mero uso del Sitio que haga el Usuario, implica que el Usuario declara haber sido previamente informado de, así como haber leído, comprendido y aceptado, estos Términos y Condiciones, así como las condiciones particulares o modificaciones que respecto de ellas se puedan efectuar, a todas las cuales el Usuario se adhiere plenamente y sin reservas.
+        </p>
+        <p class="mt-3">
+          El Usuario declara y garantiza estar apto y tener capacidad legal para aceptar los presentes Términos y Condiciones y que toda la información que proporcione a la Empresa en el marco del Sitio, bajo cualquier forma, será exacta, verdadera, completa y correcta; liberando de cualquier responsabilidad sobre el particular a la Empresa y a CLARO. En ese sentido, para efectos de las exoneraciones de responsabilidad, CLARO comprende también a cualquiera de sus respectivos directores, funcionarios, empleados u otros representantes.
+        </p>
+
+        <h4 class="mt-6 text-base font-bold text-gray-900">1. Responsabilidad limitada</h4>
+        <p class="mt-2">
+          El Usuario declara haber comprendido y aceptado que toda información, comunicación, opinión, manifestación, contenido, transacción u operación a la que acceda a través del Sitio es de exclusiva responsabilidad de la Empresa; reconociendo el Usuario que el uso del Sitio y la confianza que asigne al mismo son bajo su propio riesgo. En ese sentido, el Usuario declara haber comprendido y aceptado que, por ser el Sitio un espacio de propiedad de la Empresa y administrado exclusivamente por ella, CLARO no respalda ni garantiza la información, comunicaciones, opiniones, manifestaciones, contenido, transacciones u operaciones a las que el Usuario acceda a través del Sitio; por lo cual el Usuario libera de cualquier responsabilidad sobre el particular a CLARO.
+        </p>
+
+        <h4 class="mt-6 text-base font-bold text-gray-900">2. Limitaciones y modificación de las condiciones aplicables al Sitio</h4>
+        <p class="mt-2">
+          La Empresa expresamente se reserva la facultad y puede efectuar, en cualquier momento, bajo su exclusiva discreción y sin previo aviso, modificaciones sobre estos Términos y Condiciones. Las modificaciones entrarán en vigor inmediatamente después de que aparezcan publicadas por cualquier medio, sin necesidad de notificación alguna al Usuario. En los casos en que la Empresa estime conveniente realizar alguna notificación, ésta se efectuará por cualquier medio incluyendo, sin limitaciones, anotación en este mismo sitio web, correo electrónico u otros mecanismos electrónicos o convencionales de correos o comunicaciones, o cualquier otro método equivalente. Es recomendable que el Usuario revise en forma periódica el Sitio a fin de informarse de las modificaciones que puedan haberse introducido; la continuación en el uso del Sitio implicará la aceptación sin reservas a dichas modificaciones por parte del Usuario.
+        </p>
+
+        <h4 class="mt-6 text-base font-bold text-gray-900">3. Suspensión</h4>
+        <p class="mt-2">
+          La Empresa se reserva el derecho de suspender en cualquier momento, temporalmente y sin previo aviso, el Sitio, por el tiempo que resulte necesario.
+        </p>
+
+        <h4 class="mt-6 text-base font-bold text-gray-900">4. Vigencia, interrupción y terminación del Sitio</h4>
+        <p class="mt-2">
+          El Sitio estará disponible por tiempo indefinido. La Empresa, en cualquier momento y sin previo aviso, podrá interrumpir, desactivar, denegar, bloquear, dar por terminado el acceso o cancelar, en todo o parte, el Sitio, por cualquier razón, incluyendo, sin limitación, la detección de cualquier tipo de acto u omisión que, a juicio y a sola discreción de la Empresa, se considere como una violación a estos Términos y Condiciones, a otras condiciones aplicables o a las que emanen de la normativa vigente, sin que ello genere para la Empresa responsabilidad de clase alguna. La Empresa no asumirá responsabilidad alguna frente al Usuario o frente a terceros por ninguna de las acciones antes mencionadas. Ni la interrupción, desactivación, denegación, bloqueo, terminación del acceso, desactivación del Sitio ni cualquier acción u omisión del Usuario implicará la pérdida de vigencia de estos Términos y Condiciones.
+        </p>
+
+        <h4 class="mt-6 text-base font-bold text-gray-900">5. Interpretación</h4>
+        <p class="mt-2">
+          Los títulos de las cláusulas o numerales son meramente orientadores y no forman parte del contenido preceptivo de estos Términos y Condiciones. Los términos y condiciones que integran los presentes Términos y Condiciones constituyen la expresión formal y definitiva de la declaración de voluntad de las partes, debiendo interpretarse los unos por los otros atribuyendo a los dudosos el sentido que se derive del conjunto de todos. La eventual nulidad o ineficacia de algunas de las estipulaciones no afecta ni invalida la eficacia u obligatoriedad de las demás contenidas en los presentes Términos y Condiciones. Cualesquiera documentos o declaraciones previos a la entrada en vigor de los presentes Términos y Condiciones se considerarán definitivamente derogados.
+        </p>
+
+        <h4 class="mt-6 text-base font-bold text-gray-900">6. Competencia</h4>
+        <p class="mt-2">
+          Todas las cuestiones relacionadas al uso del Sitio se rigen por las leyes peruanas. La Empresa y el Usuario hacen renuncia expresa a cualquier otro fuero y convienen que cualquier controversia derivada de su uso o aplicación será sometida a la jurisdicción de los Juzgados y Tribunales competentes de Lima, Perú. En el caso de que el Usuario tenga su domicilio fuera de Perú, la Empresa y el Usuario se someten, con renuncia expresa a cualquier otro fuero, a los juzgados y tribunales competentes de Lima, Perú.
+        </p>
+      </div>
+      <div class="border-t border-gray-200 px-5 py-4">
+        <button type="button" id="modal-terminos-close-btn" class="w-full rounded-xl bg-[#DA291C] py-3 text-sm font-bold text-white transition-colors duration-200 hover:bg-[#B31E13]">
+          Entendido
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const modal = document.getElementById('modal-terminos');
+      const closeBtns = [document.getElementById('modal-terminos-close'), document.getElementById('modal-terminos-close-btn')];
+
+      function openModal(e) {
+        if (e) e.preventDefault();
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeModal() {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = '';
+      }
+
+      document.addEventListener('click', (e) => {
+        const trigger = e.target.closest('.terms-trigger, a[href="#terminos-condiciones"], a[href="#politica-privacidad"]');
+        if (!trigger) return;
+        openModal(e);
+      });
+      closeBtns.forEach((btn) => btn && btn.addEventListener('click', closeModal));
+      modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+    })();
+  </script>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="font-nav bg-gray-900 text-gray-300">
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-5">
+      <div class="grid grid-cols-1 gap-10 sm:grid-cols-3">
+
+        <!-- Columna 1: marca -->
+        <div>
+          <div class="flex items-center gap-3">
+            <img src="assets/logo-claro-blanco.png" alt="Claro" class="h-8 w-auto">
+            <span class="h-6 w-px bg-white/20"></span>
+            <img src="assets/icono-grupock2.png" alt="Grupo CK2" class="h-7 w-auto">
+          </div>
+          <p class="mt-4 text-sm leading-relaxed text-gray-400">
+            Distribuidor autorizado de Claro en todo el Perú. Instala tu internet, TV y beneficios exclusivos con la mejor atención.
+          </p>
+        </div>
+
+        <!-- Columna 2: legal (desplegable solo en celular) -->
+        <div class="border-b border-white/10 pb-4 sm:border-none sm:pb-0">
+          <button type="button" class="faq-question footer-dropdown-btn flex w-full items-center justify-between gap-4 py-1 text-left text-sm font-bold uppercase tracking-wide text-white">
+            <span>Legal</span>
+            <svg class="faq-chevron footer-dropdown-chevron h-4 w-4 shrink-0 text-gray-400 transition-transform duration-200" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <ul class="faq-answer footer-dropdown-answer hidden mt-3 space-y-2 pb-1 text-sm">
+            <li><button type="button" class="terms-trigger font-bold text-white transition-colors hover:text-gray-300">Información legal</button></li>
+            <li><a href="#politica-privacidad" class="terms-trigger transition-colors hover:text-white">Política de Privacidad</a></li>
+            <li><a href="#terminos-condiciones" class="terms-trigger transition-colors hover:text-white">Términos y Condiciones</a></li>
+            <li><a href="https://www.claro.com.pe/atencion-de-reclamos/libro-reclamaciones/" target="_blank" rel="noopener noreferrer" class="transition-colors hover:text-white">Libro de Reclamaciones</a></li>
+          </ul>
+        </div>
+
+        <!-- Columna 3: contacto (desplegable solo en celular) -->
+        <div class="pb-4 sm:pb-0">
+          <button type="button" class="faq-question footer-dropdown-btn flex w-full items-center justify-between gap-4 py-1 text-left text-sm font-bold uppercase tracking-wide text-white">
+            <span>Contacto</span>
+            <svg class="faq-chevron footer-dropdown-chevron h-4 w-4 shrink-0 text-gray-400 transition-transform duration-200" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <ul class="faq-answer footer-dropdown-answer hidden mt-3 space-y-2 pb-1 text-sm">
+            <li class="flex items-center gap-2">
+              <i class="fa-solid fa-phone text-xs text-[#FF3333]" aria-hidden="true"></i>
+              <a href="#" class="cta-contratar transition-colors hover:text-white">Llámanos ahora</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Franja inferior: distribuidor autorizado + Grupo CK2 -->
+    <div class="border-t border-white/10">
+      <div class="mx-auto flex max-w-6xl flex-col items-center justify-center gap-4 px-4 py-6 text-center sm:flex-row sm:gap-6 sm:px-5">
+        <p class="text-center text-xs text-gray-500">
+          © <span id="footer-year"></span> ComuniK2. Distribuidor autorizado de Claro en el Perú. Todos los derechos reservados.
+        </p>
+        <div class="flex items-center gap-1.5">
+          <img src="assets/icono-grupock2.png" alt="" class="h-5 w-auto">
+          <span class="text-xs font-bold uppercase tracking-wide text-gray-300">Grupo CK2</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+  </script>
+
+  <!-- ============================================================
+       WIRING DE LEADS → POST /api/leads (mismo origen, sin CORS)
+       Conecta los 3 formularios de captura con la API de Google Sheets.
+       ============================================================ -->
+  <script>
+    (function () {
+      // Endpoint en el mismo dominio (la landing se sirve desde este proyecto Next).
+      const LEADS_ENDPOINT = '/api/leads';
+
+      // Celular peruano: 9 dígitos que empiezan con 9 (acepta +51 / 51 / espacios / guiones).
+      function normalizePeruMobile(raw) {
+        if (typeof raw !== 'string') return null;
+        let d = raw.replace(/[\s\-().]/g, '');
+        if (d.startsWith('+51')) d = d.slice(3);
+        else if (d.startsWith('51') && d.length === 11) d = d.slice(2);
+        return /^9\d{8}$/.test(d) ? d : null;
+      }
+
+      function setMsg(el, text, ok) {
+        if (!el) return;
+        el.textContent = text;
+        el.classList.add('is-visible');
+        // No forzamos color cuando el formulario ya define uno propio (p. ej. promo en blanco).
+        if (!el.classList.contains('text-white')) {
+          el.style.color = ok ? '#16a34a' : '#DA291C';
+        }
+      }
+      function clearMsg(el) {
+        if (!el) return;
+        el.textContent = '';
+        el.classList.remove('is-visible');
+      }
+
+      async function enviarLead(payload) {
+        const res = await fetch(LEADS_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        let data = {};
+        try { data = await res.json(); } catch (_) {}
+        if (!res.ok || !data.ok) {
+          throw new Error(data.error || 'No se pudo enviar. Inténtalo de nuevo.');
+        }
+        return data;
+      }
+
+      /**
+       * Conecta un formulario de captura.
+       * @param {Object} cfg
+       * @param {string} cfg.source     hero | modal_contratar | modal_promo
+       * @param {string} cfg.phoneId
+       * @param {string} cfg.termsId
+       * @param {string} cfg.submitId
+       * @param {string} cfg.msgId
+       * @param {string} [cfg.hpId]       honeypot
+       * @param {string} [cfg.distritoId] solo el popup
+       * @param {Function} [cfg.onSuccess] callback tras éxito (p. ej. cerrar modal)
+       */
+      function wireForm(cfg) {
+        const phoneEl = document.getElementById(cfg.phoneId);
+        const termsEl = document.getElementById(cfg.termsId);
+        const submitEl = document.getElementById(cfg.submitId);
+        const msgEl = document.getElementById(cfg.msgId);
+        const hpEl = cfg.hpId ? document.getElementById(cfg.hpId) : null;
+        const distritoEl = cfg.distritoId ? document.getElementById(cfg.distritoId) : null;
+        if (!phoneEl || !submitEl) return;
+
+        const originalText = submitEl.textContent;
+
+        submitEl.addEventListener('click', async () => {
+          clearMsg(msgEl);
+
+          // 1) Validar teléfono peruano.
+          const phone = normalizePeruMobile(phoneEl.value);
+          if (!phone) {
+            setMsg(msgEl, 'Ingresa un celular válido (9 dígitos, empieza con 9).', false);
+            phoneEl.focus();
+            return;
+          }
+          // 2) Checkbox de términos obligatorio.
+          if (termsEl && !termsEl.checked) {
+            setMsg(msgEl, 'Debes aceptar los términos y condiciones.', false);
+            return;
+          }
+
+          // 3) Estado de carga.
+          submitEl.disabled = true;
+          submitEl.textContent = 'Enviando...';
+
+          try {
+            await enviarLead({
+              phone: phone,
+              source: cfg.source,
+              district: distritoEl ? distritoEl.value.trim() : undefined,
+              acceptedTerms: termsEl ? termsEl.checked : true,
+              pageUrl: window.location.href,
+              honeypot: hpEl ? hpEl.value : '',
+            });
+
+            // Éxito: confirmación visual.
+            submitEl.textContent = '✓ ¡Gracias!';
+            setMsg(msgEl, 'Te llamaremos muy pronto.', true);
+            phoneEl.value = '';
+            if (distritoEl) distritoEl.value = '';
+
+            // Cerrar el modal 1.5s después (el hero no es modal: solo se resetea).
+            if (typeof cfg.onSuccess === 'function') {
+              setTimeout(() => {
+                cfg.onSuccess();
+                clearMsg(msgEl);
+                submitEl.disabled = false;
+                submitEl.textContent = originalText;
+              }, 1500);
+            } else {
+              setTimeout(() => {
+                clearMsg(msgEl);
+                submitEl.disabled = false;
+                submitEl.textContent = originalText;
+              }, 3000);
+            }
+          } catch (err) {
+            setMsg(msgEl, err.message || 'Ocurrió un error. Inténtalo de nuevo.', false);
+            submitEl.disabled = false;
+            submitEl.textContent = originalText;
+          }
+        });
+
+        // Permitir Enter en el campo de teléfono.
+        phoneEl.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') { e.preventDefault(); submitEl.click(); }
+        });
+      }
+
+      // --- Formulario del hero ("¡Contrátalo ya!") ---
+      wireForm({
+        source: 'hero',
+        phoneId: 'hero-phone',
+        termsId: 'hero-terms',
+        submitId: 'hero-submit',
+        msgId: 'hero-msg',
+        hpId: 'hero-hp',
+      });
+
+      // --- Modal de contacto (header "Contáctanos", footer "Llámanos ahora", banner Liga1MAX) ---
+      wireForm({
+        source: 'modal_contratar',
+        phoneId: 'mc-phone',
+        termsId: 'mc-terms',
+        submitId: 'mc-submit',
+        msgId: 'mc-msg',
+        hpId: 'mc-hp',
+        onSuccess: () => window.closeModalContratar && window.closeModalContratar(),
+      });
+
+      // --- Popup inicial automático ("¡No dejes pasar esta oferta!") + distrito ---
+      wireForm({
+        source: 'modal_promo',
+        phoneId: 'mp-phone',
+        termsId: 'mp-terms',
+        submitId: 'mp-submit',
+        msgId: 'mp-msg',
+        hpId: 'mp-hp',
+        distritoId: 'mp-distrito',
+        onSuccess: () => window.closeModalPromo && window.closeModalPromo(),
+      });
+    })();
+  </script>
+
+</body>
+</html>
